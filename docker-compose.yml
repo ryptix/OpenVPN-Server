@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  openvpn-server:
+    build: ./build
+    volumes:
+      - ./data:/etc/openvpn
+    network_mode: host
+    environment:
+      - PORT=1194
+      - PROTO=udp
+      - DEV=tun
+      - SERVER_IP=10.8.0.0
+      - SERVER_MASK=255.255.255.0
+      - PERSIST=true
+      - LOG=true
+      - VERB=6
+      - EXPLICIT_EXIT=true
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "1194:1194/udp"
